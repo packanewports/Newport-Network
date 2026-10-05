@@ -4,8 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Newport Network</title>
+    <meta
+      name="description"
+      content="A personal corner of the web for projects, notes, and favorite things."
+    />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <a href="#main-content">Skip to content</a>
+
+    <header>
+      <p>Newport Network</p>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#favorites">Favorites</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section id="welcome" aria-labelledby="welcome-title">
+        <p>Welcome to my corner of the web</p>
+        <h1 id="welcome-title">A little place that feels like me.</h1>
+        <p>
+          This is where I can share what I make, what I am thinking about, and
+          the small things I want to remember.
+        </p>
+        <a href="#about">Come on in</a>
+      </section>
+
+      <section id="about" aria-labelledby="about-title">
+        <h2 id="about-title">A bit about this place</h2>
+        <p>
+          I am building this site one piece at a time. It is my own little
+          corner of the internet, made to collect the things I care about.
+        </p>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Things I am making</h2>
+        <p>This space is for projects, experiments, and works in progress.</p>
+      </section>
+
+      <section id="favorites" aria-labelledby="favorites-title">
+        <h2 id="favorites-title">A few favorite things</h2>
+        <ul>
+          <li>Stories that stay with me</li>
+          <li>Music for different moods</li>
+          <li>Unexpected little discoveries</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by me, for the internet.</p>
+    </footer>
   </body>
 </html>
