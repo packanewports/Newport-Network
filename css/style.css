@@ -4,13 +4,13 @@ body {
 }
 
 header {
-	position: sticky;
+	position: fixed;
 	top: 0;
 	z-index: 1;
 	padding: 1rem;
 	background-color: black;
 	color: white;
-    font-size: 24px;
+    font-size: 18px;
     text-align: center;
 }
 
