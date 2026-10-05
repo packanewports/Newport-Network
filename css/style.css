@@ -3,6 +3,10 @@ body {
 	font-family: helvetica;
 }
 
+main h1 {
+    padding-top: 10px;
+}
+
 header {
   position: fixed;
   top: 0;
