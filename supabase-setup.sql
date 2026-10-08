@@ -722,6 +722,16 @@ $$;
 revoke all on function public.music_plinko_record_win(uuid, smallint) from public;
 grant execute on function public.music_plinko_record_win(uuid, smallint) to anon, authenticated;
 
+create or replace function public.music_server_time()
+returns timestamptz
+language sql
+volatile
+security definer
+set search_path = ''
+as $$
+  select clock_timestamp();
+$$;
+
 create or replace function public.music_room_heartbeat(p_session_id uuid)
 returns integer
 language plpgsql
@@ -980,6 +990,7 @@ begin
 end;
 $$;
 
+revoke all on function public.music_server_time() from public;
 revoke all on function public.music_room_heartbeat(uuid) from public;
 revoke all on function public.music_room_leave(uuid) from public;
 revoke all on function public.music_room_presence_count() from public;
@@ -988,6 +999,7 @@ revoke all on function public.music_finish_track(uuid) from public;
 revoke all on function public.music_get_skip_status(uuid, uuid) from public;
 revoke all on function public.music_vote_skip(uuid, uuid) from public;
 
+grant execute on function public.music_server_time() to anon, authenticated;
 grant execute on function public.music_room_heartbeat(uuid) to anon, authenticated;
 grant execute on function public.music_room_leave(uuid) to anon, authenticated;
 grant execute on function public.music_room_presence_count() to anon, authenticated;

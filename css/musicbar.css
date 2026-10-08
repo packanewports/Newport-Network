@@ -42,7 +42,8 @@
 
 .music-owner-form[hidden],
 .music-owner-session[hidden],
-#music-clear-queue[hidden] {
+#music-clear-queue[hidden],
+#music-player-start[hidden] {
   display: none;
 }
 

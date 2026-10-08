@@ -8,6 +8,7 @@ const chatHistoryLimit = 60;
 const currentTitle = document.querySelector("#music-current-title");
 const currentRequester = document.querySelector("#music-current-requester");
 const playerMessage = document.querySelector("#music-player-message");
+const playerStartButton = document.querySelector("#music-player-start");
 const queueList = document.querySelector("#music-queue");
 const queueCount = document.querySelector("#music-queue-count");
 const queueEmpty = document.querySelector("#music-queue-empty");
@@ -56,7 +57,13 @@ let youtubePlayer;
 let youtubeReady = false;
 let youtubePlayerReady = false;
 let youtubeApiLoading = false;
+let playbackAttemptTimer;
 let currentTrack = null;
+const finishingTrackIds = new Set();
+let serverClockOffsetMs = 0;
+let serverClockSyncTimer;
+let serverClockSyncAvailable = false;
+let serverClockSyncWarningShown = false;
 let activeSessionId;
 let livePresenceAvailable = false;
 let roomRefreshRunning = false;
@@ -175,8 +182,9 @@ function initializeYouTubePlayer() {
     width: "100%",
     height: "100%",
     playerVars: {
-      autoplay: 0,
-      controls: 1,
+      autoplay: 1,
+      controls: 0,
+      disablekb: 1,
       origin: location.origin,
       playsinline: 1,
       rel: 0,
@@ -187,11 +195,19 @@ function initializeYouTubePlayer() {
         syncYouTubePlayer();
       },
       onStateChange: (event) => {
-        if (event.data === window.YT.PlayerState.ENDED && currentTrack) {
+        if (event.data === window.YT.PlayerState.PLAYING) {
+          window.clearTimeout(playbackAttemptTimer);
+          playerStartButton.hidden = true;
+          playerMessage.textContent = getPlaybackStatusMessage();
+        } else if (event.data === window.YT.PlayerState.ENDED && currentTrack) {
           finishCurrentTrack(currentTrack.id);
+        } else if (event.data === window.YT.PlayerState.PAUSED) {
+          attemptPlayback();
         }
       },
+      onAutoplayBlocked: showPlaybackFallback,
       onError: () => {
+        window.clearTimeout(playbackAttemptTimer);
         playerMessage.textContent =
           "This video cannot play in the embedded player. The room can vote to skip it.";
       },
@@ -208,26 +224,115 @@ function syncYouTubePlayer() {
   ) {
     return;
   }
-  const elapsedSeconds = Math.max(0, (Date.now() - new Date(currentTrack.started_at).getTime()) / 1000);
+  const startedAtMs = new Date(currentTrack.started_at).getTime();
+  if (!Number.isFinite(startedAtMs)) {
+    playerMessage.textContent = "The shared song start time is unavailable. Reconnecting to the room...";
+    return;
+  }
+  const elapsedSeconds = Math.max(
+    0,
+    (Date.now() + serverClockOffsetMs - startedAtMs) / 1000,
+  );
   const videoId = currentTrack.video_id;
   if (youtubePlayer.getVideoData?.()?.video_id === videoId) {
+    const durationSeconds = youtubePlayer.getDuration?.() || 0;
+    if (durationSeconds > 0 && elapsedSeconds >= durationSeconds) {
+      finishCurrentTrack(currentTrack.id);
+      return;
+    }
     const drift = Math.abs((youtubePlayer.getCurrentTime?.() || 0) - elapsedSeconds);
-    if (drift > 5) {
+    if (drift > 2.5) {
       youtubePlayer.seekTo?.(elapsedSeconds, true);
+    }
+    const playerState = youtubePlayer.getPlayerState?.();
+    if (
+      playerState === window.YT.PlayerState.PAUSED ||
+      playerState === window.YT.PlayerState.CUED ||
+      playerState === window.YT.PlayerState.UNSTARTED
+    ) {
+      attemptPlayback();
     }
     return;
   }
+  playerStartButton.hidden = true;
   youtubePlayer.loadVideoById({ videoId, startSeconds: elapsedSeconds });
-  playerMessage.textContent = "If playback does not start automatically, press Play in the YouTube player.";
+  playerMessage.textContent = "Starting playback. If your browser blocks autoplay, allow playback for this site.";
+  attemptPlayback();
 }
+
+function showPlaybackFallback() {
+  if (!currentTrack) return;
+  window.clearTimeout(playbackAttemptTimer);
+  playerStartButton.hidden = false;
+  playerMessage.textContent = "Autoplay was blocked. Select Start playback to join the song.";
+}
+
+function getPlaybackStatusMessage() {
+  return serverClockSyncAvailable
+    ? "The room is playing this YouTube video."
+    : "Playing with this device's clock. Run the latest supabase-setup.sql for improved shared timing.";
+}
+
+function attemptPlayback() {
+  if (!youtubePlayerReady || !currentTrack) return;
+  youtubePlayer.playVideo?.();
+  window.clearTimeout(playbackAttemptTimer);
+  playbackAttemptTimer = window.setTimeout(() => {
+    const playerState = youtubePlayer?.getPlayerState?.();
+    if (
+      playerState === window.YT.PlayerState.PAUSED ||
+      playerState === window.YT.PlayerState.CUED ||
+      playerState === window.YT.PlayerState.UNSTARTED
+    ) {
+      showPlaybackFallback();
+    }
+  }, 1500);
+}
+
+playerStartButton.addEventListener("click", () => {
+  attemptPlayback();
+});
 
 function clearYouTubePlayer() {
   try {
+    window.clearTimeout(playbackAttemptTimer);
     if (youtubePlayerReady && typeof youtubePlayer?.stopVideo === "function") {
       youtubePlayer.stopVideo();
     }
+    playerStartButton.hidden = true;
   } catch (error) {
     console.warn("Unable to stop the previous YouTube video:", error);
+  }
+}
+
+async function synchronizeServerClock() {
+  try {
+    const requestStartedAt = Date.now();
+    const { data, error } = await musicSupabase.rpc("music_server_time");
+    const responseReceivedAt = Date.now();
+    if (error) {
+      throw error;
+    }
+    const serverTimeMs = new Date(data).getTime();
+    if (!Number.isFinite(serverTimeMs)) {
+      throw new Error("The Music Bar server returned an invalid clock time.");
+    }
+    const previousOffset = serverClockOffsetMs;
+    serverClockOffsetMs = serverTimeMs - (requestStartedAt + responseReceivedAt) / 2;
+    serverClockSyncAvailable = true;
+    serverClockSyncWarningShown = false;
+    if (currentTrack && youtubePlayer?.getPlayerState?.() === window.YT?.PlayerState?.PLAYING) {
+      playerMessage.textContent = getPlaybackStatusMessage();
+    }
+    if (currentTrack && Math.abs(serverClockOffsetMs - previousOffset) > 1000) {
+      syncYouTubePlayer();
+    }
+  } catch (error) {
+    serverClockSyncAvailable = false;
+    if (!serverClockSyncWarningShown) {
+      console.warn("Music Bar is using this device's clock because server time sync failed:", error);
+      serverClockSyncWarningShown = true;
+    }
   }
 }
 
@@ -1440,7 +1545,7 @@ async function refreshRoom() {
       if (currentTrack) {
         currentTitle.textContent = currentTrack.title;
         currentRequester.textContent = `Requested by ${currentTrack.requester_name || "Anonymous"}`;
-        playerMessage.textContent = "The room is playing this YouTube video.";
+        playerMessage.textContent = getPlaybackStatusMessage();
         skipButton.disabled = false;
         requestYouTubeApi();
         if (currentTrack.id !== previousTrackId) {
@@ -1474,6 +1579,8 @@ async function refreshRoom() {
 }
 
 async function finishCurrentTrack(trackId) {
+  if (finishingTrackIds.has(trackId)) return;
+  finishingTrackIds.add(trackId);
   try {
     const { error } = await musicSupabase.rpc("music_finish_track", { p_track_id: trackId });
     if (error) {
@@ -1483,6 +1590,8 @@ async function finishCurrentTrack(trackId) {
   } catch (error) {
     console.error("Unable to advance after the song ended:", error);
     playerMessage.textContent = "The song ended, but the queue could not advance. Check the room connection.";
+  } finally {
+    finishingTrackIds.delete(trackId);
   }
 }
 
@@ -1795,20 +1904,30 @@ window.addEventListener("pagehide", () => {
     musicSupabase.rpc("music_room_leave", { p_session_id: activeSessionId });
   }
   window.clearInterval(audienceRefreshTimer);
+  window.clearInterval(serverClockSyncTimer);
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && currentTrack) {
+    synchronizeServerClock();
+    syncYouTubePlayer();
+  }
 });
 
 async function initializeMusicBar() {
   try {
     musicSupabase = getMusicSupabase();
     activeSessionId = getSessionId();
+    await synchronizeServerClock();
     await startRoomHeartbeat();
     await subscribeToMusicRoom();
     await refreshRoom();
+    serverClockSyncTimer = window.setInterval(synchronizeServerClock, 30000);
     audienceRefreshTimer = window.setInterval(() => {
-      if (currentTrack && youtubePlayer?.getPlayerState?.() === window.YT?.PlayerState?.PLAYING) {
+      if (currentTrack) {
         syncYouTubePlayer();
       }
-    }, 15000);
+    }, 5000);
   } catch (error) {
     connectionStatus.textContent = error.message || "Could not connect to the Music Bar.";
     console.error("Unable to initialize the Music Bar:", error);
