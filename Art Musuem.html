@@ -1,22 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Under Construction</title>
-	<style>
-		html, body { min-height: 100%; margin: 0; }
-		body {
-			min-height: 100vh;
-			display: grid;
-			place-items: center;
-			font-family: Arial, Helvetica, sans-serif;
-			text-align: center;
-		}
-		h1 { margin: 0; font-size: clamp(3rem, 12vw, 10rem); }
-	</style>
-</head>
-<body>
-	<h1>UNDER CONSTRUCTION</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A gallery of drawings sent to Packa." />
+    <title>Art Museum | Newport Network</title>
+    <link rel="icon" type="image/png" href="img/NNLogo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/art-museum.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+  </head>
+
+  <body>
+    <header>Newport Network</header>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="Art Musuem.html" aria-current="page">Art Museum</a></li>
+        <li><a href="anonwall.html">Anon Wall</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="musicbar.html">Music Bar</a></li>
+      </ul>
+    </nav>
+
+    <main class="art-museum-page">
+      <h1><span class="rainbow-float">Art Museum</span></h1>
+      <p class="art-museum-intro">A little gallery of art sent to Packa, with a favorite shelf and a weekly feature.</p>
+
+      <section class="museum-admin" aria-label="Museum owner controls">
+        <button class="letter-button letter-button-secondary" id="museum-admin-toggle" type="button">
+          Museum owner sign in
+        </button>
+        <form class="museum-login" id="museum-login" hidden>
+          <label for="museum-email">Mailbox email</label>
+          <input id="museum-email" name="email" type="email" autocomplete="username" required />
+          <label for="museum-password">Mailbox password</label>
+          <input id="museum-password" name="password" type="password" autocomplete="current-password" required />
+          <button class="letter-button" type="submit">Sign in</button>
+        </form>
+        <div class="museum-owner-controls" id="museum-owner-controls" hidden>
+          <p id="museum-owner-status" role="status" aria-live="polite">
+            Owner mode: heart favorites, choose Art of the Week, or remove artworks.
+          </p>
+          <button class="letter-button letter-button-secondary" id="museum-sign-out" type="button">
+            Sign out
+          </button>
+        </div>
+        <p class="museum-feedback" id="museum-feedback" role="status" aria-live="polite"></p>
+      </section>
+
+      <p class="art-museum-status" id="art-museum-status" role="status" aria-live="polite">
+        Loading the gallery...
+      </p>
+      <section class="art-museum-gallery" id="art-museum-gallery" aria-label="Gallery artwork"></section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/art-museum.js" defer></script>
+  </body>
 </html>

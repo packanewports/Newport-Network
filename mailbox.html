@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Read letters sent to Packa." />
+    <title>Mailbox | Newport Network</title>
+    <link rel="icon" type="image/png" href="img/NNLogo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/letter.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+  </head>
+
+  <body>
+    <header>Newport Network</header>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="letter.html">Write a letter</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="Art Musuem.html">Art Museum</a></li>
+        <li><a href="anonwall.html">Anon Wall</a></li>
+        <li><a href="musicbar.html">Music Bar</a></li>
+      </ul>
+    </nav>
+
+    <main class="letter-page mailbox-page">
+      <h1><span class="rainbow-float">Mailbox</span></h1>
+      <p class="letter-intro">Letters sent to Packa.</p>
+      <form class="mailbox-login" id="mailbox-login">
+        <label for="mailbox-email">Mailbox email</label>
+        <input id="mailbox-email" name="email" type="email" autocomplete="username" required />
+        <label for="mailbox-password">Mailbox password</label>
+        <input id="mailbox-password" name="password" type="password" autocomplete="current-password" required />
+        <button class="letter-button" type="submit">Sign in</button>
+        <p class="mailbox-feedback" id="mailbox-feedback" role="status" aria-live="polite"></p>
+      </form>
+      <section class="mailbox-content" id="mailbox-content" hidden>
+        <div class="mailbox-toolbar">
+          <p class="mailbox-feedback" id="mailbox-count" role="status" aria-live="polite"></p>
+          <p class="mailbox-new-mail" id="mailbox-new-mail" role="status" aria-live="polite" hidden></p>
+          <button class="letter-button" id="mailbox-play-sound" type="button" hidden>
+            Play mail sound
+          </button>
+          <button class="letter-button" id="mailbox-sign-out" type="button">Sign out</button>
+        </div>
+        <section class="mailbox-list" id="mailbox-list" aria-label="Saved letters"></section>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/mailbox.js" defer></script>
+  </body>
+</html>

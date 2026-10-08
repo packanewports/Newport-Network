@@ -1,0 +1,83 @@
+body {
+  box-sizing: border-box;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #fff;
+  color: #111;
+  font: 16px/1.55 Arial, Helvetica, sans-serif;
+}
+
+main {
+  width: 100%;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+input,
+textarea {
+  box-sizing: border-box;
+  width: min(100%, 38rem);
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  padding: 0.35rem 0.7rem;
+}
+
+article {
+  overflow-wrap: anywhere;
+}
+
+article p {
+  white-space: pre-wrap;
+}
+
+#private-corner-content[hidden],
+#private-corner-lock[hidden],
+#private-corner-owner-form[hidden],
+#private-corner-owner-session[hidden],
+#private-corner-post-form[hidden] {
+  display: none;
+}
+
+#private-corner-content nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+#private-corner-content section[aria-label="Journal posts"] > article {
+  padding: 0.5rem 0;
+}
+
+#private-corner-content section[aria-label="Journal posts"] h3 {
+  margin-bottom: 0.15rem;
+}
+
+#private-corner-content section[aria-label="Journal posts"] time {
+  color: #444;
+  font-size: 0.9rem;
+}
+
+#private-corner-post-body {
+  min-height: 10rem;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 0.75rem;
+  }
+}

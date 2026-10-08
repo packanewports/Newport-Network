@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Choose music, vote to skip, and chat in the Newport Network Music Bar." />
+    <title>Music Bar | Newport Network</title>
+    <link rel="icon" type="image/png" href="img/NNLogo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/musicbar.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+  </head>
+
+  <body>
+    <header>Newport Network</header>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="Art Musuem.html">Art Museum</a></li>
+        <li><a href="anonwall.html">Anon Wall</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="musicbar.html" aria-current="page">Music Bar</a></li>
+      </ul>
+    </nav>
+
+    <main class="music-page">
+      <h1><span class="rainbow-float">Music Bar</span></h1>
+      <p class="music-intro">Drop a YouTube song in the queue, vote to skip, and hang out in the live chat.</p>
+
+      <section class="music-owner-controls" aria-label="Music Bar owner controls">
+        <button class="letter-button letter-button-secondary" id="music-owner-toggle" type="button">
+          Owner sign in
+        </button>
+        <form class="music-owner-form" id="music-owner-form" hidden>
+          <label for="music-owner-email">Mailbox email</label>
+          <input id="music-owner-email" name="email" type="email" autocomplete="username" required />
+          <label for="music-owner-password">Mailbox password</label>
+          <input id="music-owner-password" name="password" type="password" autocomplete="current-password" required />
+          <button class="letter-button" type="submit">Sign in</button>
+        </form>
+        <div class="music-owner-session" id="music-owner-session" hidden>
+          <span>Owner mode: clear queued songs.</span>
+          <button class="letter-button letter-button-secondary" id="music-owner-sign-out" type="button">Sign out</button>
+        </div>
+        <p id="music-owner-status" class="music-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="music-player-card" aria-labelledby="now-playing-heading">
+        <div class="music-now-playing">
+          <h2 id="now-playing-heading">Now playing</h2>
+          <p id="music-current-title">Connecting to the room...</p>
+          <p id="music-current-requester" class="music-current-requester"></p>
+          <div class="music-player-shell">
+            <div id="music-player" aria-label="YouTube music player"></div>
+          </div>
+          <p id="music-player-message" class="music-status" role="status" aria-live="polite">
+            Connect to the room to see the current song.
+          </p>
+          <div class="music-skip-row">
+            <span id="music-room-count" aria-live="polite" aria-atomic="true" aria-label="Room count connecting">
+              <span>Room:</span>
+              <span class="music-room-odometer" id="music-room-odometer" aria-hidden="true" hidden></span>
+              <span id="music-room-people">connecting...</span>
+            </span>
+            <button class="letter-button letter-button-secondary" id="music-skip-button" type="button" disabled>
+              Vote to skip
+            </button>
+          </div>
+          <p id="music-skip-status" class="music-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <section class="music-queue-panel" aria-labelledby="music-queue-heading">
+          <div class="music-section-heading">
+            <h2 id="music-queue-heading">Up next</h2>
+            <div class="music-queue-heading-actions">
+              <span id="music-queue-count">0 songs</span>
+              <button class="letter-button letter-button-secondary" id="music-clear-queue" type="button" hidden>
+                Clear queue
+              </button>
+            </div>
+          </div>
+          <ol id="music-queue" class="music-queue" aria-live="polite"></ol>
+          <p id="music-queue-empty" class="music-status">The queue is empty. Add a song to get things started.</p>
+        </section>
+      </section>
+
+      <div class="music-columns">
+        <section class="music-panel" aria-labelledby="music-request-heading">
+          <h2 id="music-request-heading">Add a song</h2>
+          <form id="music-request-form" class="music-request-form">
+            <label for="music-song-title">Song or video title</label>
+            <input id="music-song-title" name="title" maxlength="160" required placeholder="Song title" />
+            <label for="music-song-requester">Your name (optional)</label>
+            <input id="music-song-requester" name="requester" maxlength="24" placeholder="Anonymous" />
+            <label for="music-song-url">YouTube link</label>
+            <input
+              id="music-song-url"
+              name="url"
+              type="url"
+              maxlength="500"
+              required
+              placeholder="https://www.youtube.com/watch?v=..."
+            />
+            <button class="letter-button" id="music-request-submit" type="submit">Add to queue</button>
+            <p id="music-request-status" class="music-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="music-panel music-chat-panel" aria-labelledby="music-chat-heading">
+          <h2 id="music-chat-heading">Live chat</h2>
+          <p id="music-chat-history-status" class="music-chat-history-status" role="status" aria-live="polite">
+            Scroll up in the chat to load older messages.
+          </p>
+          <div id="music-chat-messages" class="music-chat-messages" role="log" aria-live="polite"></div>
+          <form id="music-chat-form" class="music-chat-form">
+            <label for="music-chat-name">Name (optional)</label>
+            <input id="music-chat-name" name="name" maxlength="24" placeholder="Anonymous" />
+            <label for="music-chat-message">Message</label>
+            <textarea id="music-chat-message" name="message" maxlength="500" rows="2" required
+              placeholder="Say hello..."></textarea>
+            <button class="letter-button" id="music-chat-submit" type="submit">Send</button>
+            <p id="music-chat-status" class="music-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+      <p id="music-connection-status" class="music-connection-status" role="status" aria-live="polite">
+        Connecting to the music room...
+      </p>
+    </main>
+    <button class="letter-button letter-button-secondary music-reaction-test-toggle" id="music-reaction-test-toggle"
+      type="button" aria-expanded="false" aria-controls="music-reaction-test" hidden>
+      Reaction tests
+    </button>
+    <section class="music-reaction-test" id="music-reaction-test" aria-label="Private reaction testing" hidden>
+      <h2>Reaction test panel</h2>
+      <p>These tests are visible only in your signed-in browser and do not post to chat.</p>
+      <div>
+        <button class="letter-button letter-button-secondary" id="music-reaction-test-button" type="button">
+          Test a reaction
+        </button>
+        <button class="letter-button letter-button-secondary" id="music-plinko-test-button" type="button">
+          Test a Plinko drop
+        </button>
+      </div>
+    </section>
+    <div class="music-reaction-layer" id="music-reaction-layer" aria-hidden="true"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/musicbar.js" defer></script>
+  </body>
+</html>

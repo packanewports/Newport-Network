@@ -1,0 +1,163 @@
+.art-museum-page {
+  box-sizing: border-box;
+  width: min(100%, 1400px);
+  margin: 0 auto;
+}
+
+.art-museum-intro,
+.art-museum-status,
+.museum-feedback,
+.museum-owner-controls p {
+  color: white;
+  font-family: "Corben", sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.art-museum-intro {
+  margin: 0.5rem auto 1.5rem;
+  font-size: 1.2rem;
+}
+
+.museum-admin {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  width: min(100%, 420px);
+  margin: 0 auto 1.5rem;
+}
+
+.museum-login,
+.museum-owner-controls {
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem;
+  border: 3px solid #111;
+  background: white;
+  color: #111;
+  font-family: "Corben", sans-serif;
+  font-weight: 700;
+}
+
+.museum-login[hidden],
+.museum-owner-controls[hidden] {
+  display: none;
+}
+
+.museum-login input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  font: 1rem "Corben", sans-serif;
+}
+
+.museum-owner-controls p {
+  margin: 0;
+  color: #111;
+}
+
+.museum-feedback {
+  min-height: 1.4em;
+  margin: 0;
+}
+
+.art-museum-status {
+  margin: 1.5rem auto;
+}
+
+.art-museum-gallery {
+  column-count: 4;
+  column-gap: 1.25rem;
+}
+
+.museum-artwork {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 1.25rem;
+  padding: 0.8rem;
+  break-inside: avoid;
+  border: 4px solid #111;
+  background: #fff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
+}
+
+.museum-artwork.is-art-of-week {
+  border-color: #9a7100;
+  box-shadow: 0 0 0 3px #f3d46b, 0 6px 16px rgb(0 0 0 / 30%);
+}
+
+.museum-artwork-badge {
+  display: block;
+  margin: -0.15rem -0.15rem 0.65rem;
+  padding: 0.4rem;
+  background: #f3d46b;
+  color: #111;
+  font: 700 1rem "Corben", sans-serif;
+  text-align: center;
+}
+
+.museum-artwork img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #f2f2f2;
+  object-fit: contain;
+}
+
+.museum-artwork figcaption {
+  margin-top: 0.6rem;
+  color: #111;
+  font: 1rem/1.35 "Corben", sans-serif;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.museum-artwork time {
+  display: block;
+  margin-top: 0.25rem;
+  color: #555;
+  font: 0.8rem "Corben", sans-serif;
+}
+
+.museum-artwork .letter-button {
+  width: 100%;
+  margin-top: 0.65rem;
+  font-size: 1rem;
+}
+
+.museum-favorite-button.is-selected {
+  background: #8b0000;
+  color: white;
+}
+
+@media (max-width: 1000px) {
+  .art-museum-gallery {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 700px) {
+  .art-museum-gallery {
+    column-count: 2;
+    column-gap: 0.75rem;
+  }
+
+  .museum-artwork {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border-width: 3px;
+  }
+}
+
+@media (max-width: 360px) {
+  .art-museum-gallery {
+    column-count: 1;
+  }
+}

@@ -9,7 +9,6 @@ const splashTexts = [
   "I'm proud of you!",
   "Packasites is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website that is a website.",
   "Packa what? Packa deez nutz!!!",
-  "I'm so very gay.",
   "Things that bother you, they never bother me!",
   "Big fan of feet.",
   "It says gullible on the ceiling!",
@@ -28,8 +27,19 @@ const splashTexts = [
   "Gosh, You're so pretty!",
   "Love yourself, and love others too!",
   "Every living creature deserves love and respect.",
-  "I be kissing people of all genders and sexualities, and I don't care who knows it.",
   "Give me more splashtexts, I need more splashtexts!",
+  "SHUT UP! (SMOSH)",
+  "Hint: type packa",
+  "heh, GAEEEEEEEEEEEE",
+  "Theres more secrets on this site than you could know!",
+  "Now with 2% more cuteness!",
+  "Packa Packa Alpaca",
+  "Password = MarlboroSux32",
+  "Newport Supreme Leader",
+  "This just in, flying space ducks?",
+  "Gosh, I'm still not over her",
+  "The ultimate game of hide and seek!",
+
 
 ];
 

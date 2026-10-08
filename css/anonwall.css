@@ -1,0 +1,332 @@
+.anon-wall-page {
+  box-sizing: border-box;
+  width: min(100%, 920px);
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.anon-wall-intro,
+.anon-wall-feedback {
+  color: white;
+  font-family: "Corben", sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.anon-wall-intro {
+  margin: 0.5rem auto 1rem;
+  font-size: 1.1rem;
+}
+
+.anon-owner {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  margin: 0 auto 1rem;
+}
+
+.anon-owner-form,
+.anon-owner-session {
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  width: min(100%, 400px);
+  padding: 0.75rem;
+  border: 3px solid #111;
+  background: white;
+  color: #111;
+  font: 700 0.95rem "Corben", sans-serif;
+}
+
+.anon-owner-form[hidden],
+.anon-owner-session[hidden] {
+  display: none;
+}
+
+.anon-owner-form input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  font: 1rem "Corben", sans-serif;
+}
+
+.anon-owner-session {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.anon-owner-session span {
+  text-align: center;
+}
+
+.anon-wall-feedback {
+  min-height: 1.35em;
+  margin: 0;
+}
+
+.anon-composer {
+  box-sizing: border-box;
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  color: #111;
+  font-family: "Corben", sans-serif;
+  font-weight: 700;
+}
+
+.anon-post-dialog {
+  box-sizing: border-box;
+  width: min(92vw, 620px);
+  max-height: min(90vh, 760px);
+  padding: 1.25rem;
+  border: 4px solid #111;
+  background: white;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 40%);
+  color: #111;
+}
+
+.anon-post-dialog::backdrop {
+  background: rgb(0 0 0 / 65%);
+  backdrop-filter: blur(3px);
+}
+
+.anon-post-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.anon-post-dialog-header h2 {
+  margin: 0;
+  font: 700 1.25rem "Corben", sans-serif;
+}
+
+.anon-post-open {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 5;
+  min-width: 6rem;
+  min-height: 3rem;
+  box-shadow: 0 3px 12px rgb(0 0 0 / 45%);
+}
+
+.anon-post-open[hidden] {
+  display: none;
+}
+
+.anon-composer textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 4.5rem;
+  max-height: 10rem;
+  padding: 0.6rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  font: 1rem/1.45 "Corben", sans-serif;
+  resize: vertical;
+}
+
+.anon-composer-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.anon-upload-label {
+  min-height: 38px;
+  padding: 0.45rem 0.7rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.anon-upload-info {
+  flex: 1 1 8rem;
+  color: #444;
+  font-size: 0.85rem;
+}
+
+.anon-composer .anon-wall-feedback,
+.anon-owner .anon-wall-feedback {
+  color: #8b0000;
+}
+
+.anon-feed {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.anon-post {
+  min-width: 0;
+  padding: clamp(0.75rem, 3vw, 1.25rem);
+  border: 4px solid #111;
+  background: #fff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 22%);
+  color: #111;
+}
+
+.anon-post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font: 0.85rem "Corben", sans-serif;
+}
+
+.anon-post-body {
+  margin: 0.5rem 0;
+  font: 1.1rem/1.55 "Corben", sans-serif;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.anon-post-media {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: min(75vh, 720px);
+  margin: 0.75rem auto;
+  background: #111;
+  object-fit: contain;
+}
+
+.anon-post-actions,
+.anon-reply-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.anon-thread-back {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  text-decoration: none;
+}
+
+.anon-thread-back[hidden] {
+  display: none;
+}
+
+.anon-post-actions .letter-button,
+.anon-reply-controls .letter-button,
+.anon-delete-reply {
+  min-height: 38px;
+  padding: 0.4rem 0.7rem;
+  font-size: 1rem;
+}
+
+.anon-like-button.is-liked {
+  background: #8b0000;
+  color: white;
+}
+
+.anon-replies {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #aaa;
+}
+
+.anon-replies[hidden],
+.anon-pagination[hidden] {
+  display: none;
+}
+
+.anon-reply {
+  padding: 0.6rem;
+  border-left: 4px solid #999;
+  background: #f2f2f2;
+}
+
+.anon-reply p {
+  margin: 0;
+  font: 0.98rem/1.5 "Corben", sans-serif;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.anon-reply time {
+  display: block;
+  margin-top: 0.25rem;
+  color: #555;
+  font: 0.75rem "Corben", sans-serif;
+}
+
+.anon-reply-form {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.anon-reply-form[hidden] {
+  display: none;
+}
+
+.anon-reply-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.5rem;
+  font: 1rem/1.4 "Corben", sans-serif;
+  resize: vertical;
+}
+
+.anon-reply-feedback {
+  min-height: 1.2em;
+  margin: 0;
+  color: #8b0000;
+  font: 0.85rem "Corben", sans-serif;
+}
+
+.anon-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.25rem auto;
+  color: white;
+  font: 700 1rem "Corben", sans-serif;
+}
+
+.anon-pagination .letter-button {
+  min-width: 5.5rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .anon-post-dialog {
+    width: calc(100vw - 1.5rem);
+    max-height: calc(100dvh - 1.5rem);
+    padding: 1rem;
+  }
+
+  .anon-composer-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .anon-upload-label,
+  .anon-upload-info {
+    grid-column: 1 / -1;
+  }
+
+  .anon-composer-controls > button {
+    grid-column: 1 / -1;
+  }
+
+  .anon-owner-session {
+    grid-template-columns: 1fr;
+  }
+}

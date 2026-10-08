@@ -1,0 +1,853 @@
+.letter-page {
+  color: white;
+}
+
+#letter-image:focus-visible ~ #attachment-details {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
+.letter-page h1 {
+  padding-top: 0.5rem;
+}
+
+.letter-intro,
+.mailbox-note,
+.mailbox-feedback {
+  margin: 0.5rem auto 1rem;
+  color: white;
+  font-family: "Corben", sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.letter-stage {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  min-height: min(80vh, 760px);
+  place-items: center;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.letter-stage.is-writing {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding: 1rem;
+  background: rgb(0 0 0 / 92%);
+}
+
+.letter-choices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.letter-button {
+  min-height: 44px;
+  padding: 0.7rem 1.2rem;
+  border: 2px solid #111;
+  border-radius: 4px;
+  background: #f2f2f2;
+  color: #111;
+  cursor: pointer;
+  font: 1.25rem "Marlboro", sans-serif;
+}
+
+.letter-button:hover,
+.letter-button:focus-visible {
+  background: #111;
+  color: white;
+}
+
+.letter-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.letter-button:disabled:hover {
+  background: #f2f2f2;
+  color: #111;
+}
+
+.letter-button-secondary {
+  background: #dedede;
+}
+
+.letter-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  width: min(calc(100% - 2rem), 510px);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem;
+  transform: translate(-50%, 105%);
+  opacity: 0;
+  transition: transform 700ms ease, opacity 500ms ease;
+}
+
+.sender-name {
+  display: grid;
+  width: 100%;
+  gap: 0.25rem;
+  color: white;
+  font-family: "Corben-Bold", sans-serif;
+}
+
+.sender-name-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.sender-name input,
+.mailbox-login input {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: white;
+  color: #111;
+  font: 1rem "Corben-Bold", sans-serif;
+}
+
+.sender-name input {
+  flex: 1;
+}
+
+.sender-name .letter-button {
+  padding: 0.45rem 0.65rem;
+  font-size: 1rem;
+}
+
+.letter-attachment {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  width: 100%;
+  color: white;
+  font: 0.8rem "Corben-Bold", sans-serif;
+}
+
+.letter-attachment .letter-button {
+  box-sizing: border-box;
+  min-height: 38px;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.letter-attachment > span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.remove-attachment {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.remove-attachment:hover,
+.remove-attachment:focus-visible {
+  color: #ddd;
+}
+
+.letter-form.is-visible {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.letter-paper {
+  position: relative;
+  container-type: inline-size;
+  width: min(100%, 510px, 50vh, calc(77.3dvh - 190px));
+  max-width: 100%;
+}
+
+.letter-paper > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.letter-paper textarea {
+  position: absolute;
+  top: 11.6%;
+  left: 18%;
+  box-sizing: border-box;
+  width: 77%;
+  height: 83%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #192f68;
+  font-family: "Corben-Bold", sans-serif;
+  font-size: clamp(9px, 2.5cqw, 13px);
+  line-height: 2.94cqw;
+  overflow: hidden;
+  resize: none;
+}
+
+.letter-paper textarea:focus-visible {
+  outline: none;
+}
+
+.letter-paper textarea::placeholder {
+  color: #52627e;
+  opacity: 0.8;
+}
+
+.letter-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.letter-feedback {
+  min-height: 1.5em;
+  margin: 0;
+  width: 100%;
+  color: white;
+  font-family: "Corben-Bold", sans-serif;
+  text-align: center;
+}
+
+.letter-form.is-leaving {
+  transform: translate(-50%, 120%);
+  opacity: 0;
+  transition-duration: 650ms;
+}
+
+.drawing-form {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(140px, min(50vw, 600px)) minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  grid-template-areas:
+    "name name name"
+    "toolbar toolbar toolbar"
+    ". paper controls"
+    "feedback feedback feedback"
+    "actions actions actions";
+  align-content: start;
+  justify-items: center;
+  gap: 0.5rem;
+  overflow: auto;
+  padding: max(0.5rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right))
+    max(0.5rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+  background: rgb(0 0 0 / 96%);
+  opacity: 0;
+  transform: translateY(105%);
+  transition: transform 600ms ease, opacity 450ms ease;
+}
+
+.drawing-form.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.drawing-name {
+  grid-area: name;
+  display: grid;
+  width: min(100%, 600px);
+  gap: 0.25rem;
+  color: white;
+  font-family: "Corben-Bold", sans-serif;
+}
+
+.drawing-toolbar {
+  grid-area: toolbar;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  justify-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: min(100%, 900px);
+  padding: 0.15rem 0;
+}
+
+.drawing-guide {
+  align-self: center;
+  max-width: 22rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 6px;
+  color: white;
+  font: 0.82rem/1.45 "Corben-Bold", sans-serif;
+}
+
+.drawing-guide-controls {
+  grid-area: controls;
+  justify-self: start;
+}
+
+.drawing-guide h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.drawing-guide ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.drawing-guide li + li {
+  margin-top: 0.2rem;
+}
+
+.drawing-toolbar-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.drawing-tools-group {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.drawing-settings-group,
+.drawing-history-group {
+  width: fit-content;
+}
+
+.drawing-tool {
+  box-sizing: border-box;
+  min-width: 5.75rem;
+  min-height: 38px;
+  padding: 0.35rem 0.65rem;
+  font-size: 1rem;
+}
+
+.drawing-tools-group .drawing-tool {
+  min-width: 0;
+  width: 100%;
+}
+
+.drawing-tool.is-selected {
+  background: #111;
+  color: white;
+  outline: 2px solid white;
+  outline-offset: 1px;
+}
+
+.drawing-color-label,
+.drawing-size-label {
+  color: white;
+  font-family: "Corben-Bold", sans-serif;
+  font-size: 0.9rem;
+}
+
+#drawing-color {
+  width: 40px;
+  height: 38px;
+  padding: 2px;
+  border: 2px solid white;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+#drawing-size {
+  width: clamp(70px, 18vw, 130px);
+  accent-color: #f1c75b;
+}
+
+.drawing-size-value {
+  min-width: 3.5em;
+  color: white;
+  font: 0.9rem "Corben-Bold", sans-serif;
+  text-align: center;
+}
+
+.drawing-paper {
+  grid-area: paper;
+  position: relative;
+  align-self: center;
+  width: min(100%, 680px, calc(100dvh - 280px));
+  height: auto;
+  aspect-ratio: 1;
+  max-width: 100%;
+  overflow: hidden;
+  background: #eee;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 45%);
+  touch-action: none;
+}
+
+.drawing-paper > img,
+.drawing-paper > canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.drawing-paper > img {
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.drawing-paper > canvas {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.drawing-paper > canvas:not(.is-erasing) {
+  cursor: none;
+}
+
+.drawing-paper > .drawing-cursor-marker {
+  position: absolute;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  border: 1px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 85%);
+  pointer-events: none;
+}
+
+.drawing-paper > .drawing-hand-cursor {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+
+.drawing-paper > [hidden] {
+  display: none !important;
+}
+
+.drawing-paper > .brush-preview {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 70%);
+  pointer-events: none;
+}
+
+.drawing-feedback {
+  grid-area: feedback;
+  min-height: 1.4em;
+  margin: 0;
+  color: white;
+  font-family: "Corben-Bold", sans-serif;
+  text-align: center;
+}
+
+.drawing-form .letter-actions {
+  grid-area: actions;
+  justify-self: center;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (max-width: 800px) {
+  .drawing-form {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "name name"
+      "toolbar toolbar"
+      "paper paper"
+      "controls controls"
+      "feedback feedback"
+      "actions actions";
+  }
+
+  .drawing-toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 900px);
+  }
+
+  .drawing-settings-group,
+  .drawing-history-group {
+    width: 100%;
+  }
+
+  .drawing-guide-controls {
+    align-self: start;
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .drawing-form {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "name"
+      "toolbar"
+      "paper"
+      "feedback"
+      "actions";
+  }
+
+  .drawing-toolbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .drawing-tools-group {
+    grid-column: auto;
+  }
+
+  .drawing-paper {
+    width: max(160px, min(calc(100vw - 1rem), calc(100dvh - 330px), 600px));
+    height: max(160px, min(calc(100vw - 1rem), calc(100dvh - 330px), 600px));
+  }
+
+  .drawing-tools-group {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100%, 420px);
+  }
+
+  .drawing-toolbar-group {
+    gap: 0.35rem;
+  }
+
+  .drawing-tool {
+    min-width: 4.75rem;
+    padding: 0.35rem 0.45rem;
+    font-size: 0.95rem;
+  }
+
+  .drawing-tools-group .drawing-tool {
+    min-height: 40px;
+  }
+
+  .drawing-settings-group {
+    display: grid;
+    grid-template-columns: auto 40px auto minmax(70px, 130px) auto;
+  }
+
+  #drawing-size {
+    width: 100%;
+  }
+}
+
+.letter-sent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  width: min(100%, 600px);
+  transform: translate(-50%, 110%);
+  opacity: 0;
+  transition: transform 700ms ease, opacity 500ms ease;
+}
+
+.letter-sent.is-visible {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.letter-sent > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sent-stamp {
+  position: absolute;
+  top: 15%;
+  right: 8%;
+  transform-origin: 75% 85%;
+  margin: 0;
+  padding: 0.15em 0.25em;
+  border: 4px solid #a90000;
+  color: #a90000;
+  font: clamp(1.5rem, 8vw, 3rem) "Marlboro", sans-serif;
+  opacity: 0;
+  filter: drop-shadow(0 0 0 rgb(0 0 0 / 0%));
+}
+
+.sent-stamp.is-visible {
+  animation: stamp-pop 600ms cubic-bezier(0.2, 1.5, 0.35, 1) forwards;
+}
+
+.letter-sent .letter-button {
+  margin-top: 0.75rem;
+}
+
+.mailbox-page {
+  width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.mailbox-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.mailbox-login {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  width: min(100%, 360px);
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 4px solid black;
+  background: white;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
+  color: black;
+  font-family: "Corben-Bold", sans-serif;
+}
+
+.mailbox-login input {
+  width: 100%;
+}
+
+.mailbox-login .mailbox-feedback {
+  min-height: 1.5em;
+  margin: 0;
+  color: #8b0000;
+}
+
+.mailbox-content .mailbox-feedback {
+  margin: 1rem auto;
+}
+
+.mailbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.mailbox-toolbar .mailbox-feedback {
+  margin: 0;
+}
+
+.mailbox-new-mail {
+  margin: 0;
+  color: #fff2a8;
+  font-family: "Corben-Bold", sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  animation: new-mail-glow 1.4s ease-in-out infinite alternate;
+}
+
+.mailbox-entry {
+  padding: 1.25rem;
+  border: 4px solid black;
+  background: white;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
+  color: black;
+}
+
+.mailbox-entry time {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #444;
+  font-family: "Corben-Bold", sans-serif;
+}
+
+.mailbox-entry h2 {
+  margin-top: 0;
+  font-family: "Marlboro", sans-serif;
+}
+
+.mailbox-entry.is-new {
+  border-color: #f1c75b;
+}
+
+.mailbox-entry-badge {
+  display: inline-block;
+  margin: 0 0 0.75rem 0.5rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: #8b0000;
+  color: white;
+  font: 0.8rem "Corben-Bold", sans-serif;
+  vertical-align: middle;
+}
+
+.mailbox-entry p {
+  margin: 0;
+  font-family: "Marlboro", sans-serif;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.mailbox-image {
+  display: block;
+  width: auto;
+  max-width: min(100%, 600px);
+  max-height: 500px;
+  margin-top: 1rem;
+  object-fit: contain;
+}
+
+.mailbox-museum-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.65rem;
+}
+
+.mailbox-museum-controls .letter-button {
+  font-size: 1rem;
+}
+
+.mailbox-museum-controls .mailbox-image-error {
+  margin: 0;
+}
+
+.mailbox-image-error {
+  color: #8b0000;
+  font-family: "Corben-Bold", sans-serif;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@keyframes stamp-pop {
+  0% {
+    transform: translateY(-90px) scale(1.35) rotate(-28deg);
+    opacity: 0;
+    filter: drop-shadow(0 0 0 rgb(0 0 0 / 0%));
+  }
+
+  55% {
+    transform: translateY(8px) scale(0.92) rotate(-8deg);
+    opacity: 1;
+    filter: drop-shadow(0 9px 5px rgb(0 0 0 / 45%));
+  }
+
+  76% {
+    transform: translateY(-4px) scale(1.04) rotate(-14deg);
+  }
+
+  100% {
+    transform: translateY(0) scale(1) rotate(-12deg);
+    opacity: 1;
+    filter: drop-shadow(0 3px 2px rgb(0 0 0 / 25%));
+  }
+}
+
+@keyframes new-mail-glow {
+  from {
+    text-shadow: 0 0 2px rgb(255 242 168 / 30%);
+  }
+
+  to {
+    text-shadow: 0 0 12px rgb(255 242 168 / 90%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-form,
+  .drawing-form,
+  .letter-sent {
+    transition-duration: 0.01ms;
+  }
+
+  .sent-stamp.is-visible {
+    animation-duration: 0.01ms;
+  }
+
+  .mailbox-new-mail {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .letter-stage {
+    min-height: min(80vh, 700px);
+  }
+
+  .letter-button {
+    font-size: 1.1rem;
+  }
+
+  .sender-name .letter-button {
+    font-size: 0.95rem;
+  }
+
+  .letter-form {
+    gap: 0.35rem;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .letter-form::-webkit-scrollbar {
+    display: none;
+  }
+
+  .letter-attachment {
+    gap: 0.15rem 0.45rem;
+  }
+
+  .letter-attachment .letter-button {
+    min-height: 32px;
+    padding: 0.15rem 0.55rem;
+    line-height: 1.2;
+  }
+
+  .letter-attachment > span {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .letter-paper {
+    width: min(100%, calc(60dvh - 150px));
+  }
+
+  .mailbox-entry {
+    padding: 1rem;
+  }
+}

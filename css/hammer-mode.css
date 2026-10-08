@@ -1,0 +1,59 @@
+.hammer-mode-active,
+.hammer-mode-active * {
+  cursor: none !important;
+}
+
+.hammer-mode-active {
+  user-select: none;
+}
+
+.hammer-mode-cursor,
+.hammer-mode-status,
+.hammer-mode-burst {
+  position: fixed;
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+.hammer-mode-cursor {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  transform: translate(-12px, -14px) rotate(55deg);
+  filter: drop-shadow(1px 2px 2px rgb(0 0 0 / 55%));
+}
+
+.hammer-mode-cursor[hidden],
+.hammer-mode-status[hidden] {
+  display: none;
+}
+
+.hammer-mode-status {
+  top: max(0.75rem, env(safe-area-inset-top));
+  left: 50%;
+  padding: 0.55rem 0.85rem;
+  border: 2px solid #171717;
+  border-radius: 0.4rem;
+  background: #fff2a8;
+  color: #171717;
+  font: 700 1rem/1.2 "Corben", sans-serif;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 35%);
+}
+
+.hammer-mode-destroyed {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.hammer-mode-burst {
+  display: block;
+  object-fit: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hammer-mode-burst {
+    animation: none;
+  }
+}

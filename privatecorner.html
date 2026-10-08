@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="A private, password-gated journal." />
+    <title>Private Corner</title>
+    <link rel="stylesheet" href="css/private-corner.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Private Corner</h1>
+
+      <form id="private-corner-lock">
+        <h2>This page is password protected</h2>
+        <label for="private-corner-password">Password</label>
+        <input id="private-corner-password" name="password" type="password" autocomplete="current-password" required />
+        <button type="submit">Continue</button>
+        <p id="private-corner-error" role="alert" aria-live="polite"></p>
+        <a href="index.html">Return to Newport Network</a>
+      </form>
+
+      <section id="private-corner-content" hidden>
+        <p><a href="index.html">Return to Newport Network</a></p>
+        <h2>Journal</h2>
+
+        <section aria-labelledby="private-corner-owner-heading">
+          <h3 id="private-corner-owner-heading">Publishing</h3>
+          <button id="private-corner-owner-toggle" type="button">Mailbox owner sign in</button>
+          <form id="private-corner-owner-form" hidden>
+            <p>
+              <label for="private-corner-email">Mailbox email</label><br />
+              <input id="private-corner-email" type="email" autocomplete="username" required />
+            </p>
+            <p>
+              <label for="private-corner-mailbox-password">Mailbox password</label><br />
+              <input id="private-corner-mailbox-password" type="password" autocomplete="current-password" required />
+            </p>
+            <button type="submit">Sign in</button>
+          </form>
+          <p id="private-corner-owner-status" role="status" aria-live="polite"></p>
+          <div id="private-corner-owner-session" hidden>
+            <p>Signed in as the mailbox owner.</p>
+            <button id="private-corner-owner-sign-out" type="button">Sign out</button>
+          </div>
+
+          <form id="private-corner-post-form" hidden>
+            <h3>Write a post</h3>
+            <p>
+              <label for="private-corner-post-title">Title</label><br />
+              <input id="private-corner-post-title" maxlength="160" required />
+            </p>
+            <p>
+              <label for="private-corner-post-body">Post</label><br />
+              <textarea id="private-corner-post-body" rows="8" maxlength="10000" required></textarea>
+            </p>
+            <p id="private-corner-post-status" role="status" aria-live="polite"></p>
+            <button id="private-corner-post-submit" type="submit">Publish</button>
+          </form>
+        </section>
+
+        <hr />
+        <p id="private-corner-feed-status" role="status" aria-live="polite">Enter the page password to load posts.</p>
+        <section id="private-corner-feed" aria-label="Journal posts"></section>
+        <nav aria-label="Journal pages">
+          <button id="private-corner-newer" type="button" disabled>Newer</button>
+          <span id="private-corner-page-status">Page 1</span>
+          <button id="private-corner-older" type="button" disabled>Older</button>
+        </nav>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/private-corner-lock.js" defer></script>
+  </body>
+</html>

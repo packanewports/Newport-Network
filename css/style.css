@@ -119,15 +119,16 @@ header {
   font-size: 3rem;
   text-align: center;
   font-family: "Corben-Bold";
+  font-weight: 1000;
 }
 
 nav ul {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin: 0;
-  padding: 1rem max(1rem, env(safe-area-inset-left));
+  padding: 0.75rem max(1rem, env(safe-area-inset-left));
   list-style: none;
 }
 
@@ -137,17 +138,18 @@ nav a {
   min-height: 44px;
   align-items: center;
   justify-content: center;
-  padding: clamp(0.65rem, 2.5vw, 0.9rem) clamp(0.9rem, 3vw, 1.2rem);
+  padding: 0.6rem clamp(0.7rem, 2vw, 1rem);
   border: 2px solid #111;
   border-radius: 4px;
   background-color: #f2f2f2;
   color: #111;
-  font-size: 2rem;
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
   text-decoration: none;
 }
 
 nav a:hover,
-nav a:focus-visible {
+nav a:focus-visible,
+nav a[aria-current="page"] {
   background-color: #111;
   color: white;
 }
@@ -282,6 +284,454 @@ main {
   color:smoke;
 }
 
+.whats-happening {
+  box-sizing: border-box;
+  width: min(100%, 1200px);
+  margin: 1.25rem auto 2rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 4px solid #111;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 25%);
+}
+
+.whats-happening-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.whats-happening-heading h2 {
+  margin: 0;
+  font: 700 clamp(1.5rem, 4vw, 2rem) "Corben", sans-serif;
+}
+
+.whats-happening-heading p {
+  margin: 0.25rem 0 0;
+  color: #555;
+  font: 0.85rem "Corben", sans-serif;
+}
+
+.happening-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.happening-card {
+  display: flex;
+  min-width: 0;
+  min-height: 150px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  border: 2px solid #111;
+  background: #f2f2f2;
+  color: #111;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.happening-card:hover,
+.happening-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+}
+
+.happening-card:focus-visible {
+  outline: 3px solid #2456d8;
+  outline-offset: 2px;
+}
+
+.happening-label {
+  color: #555;
+  font: 700 0.8rem "Corben", sans-serif;
+  text-transform: uppercase;
+}
+
+.happening-card strong {
+  font: 700 1rem/1.4 "Corben", sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.happening-card > span:last-child {
+  margin-top: auto;
+  color: #444;
+  font: 0.82rem/1.4 "Corben", sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.happening-art img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+.happening-art img[hidden] {
+  display: none;
+}
+
+.happening-art {
+  background: #fff6d5;
+}
+
+.site-counters {
+  box-sizing: border-box;
+  width: min(100%, 900px);
+  margin: 1.25rem auto 2rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 4px solid #111;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 25%);
+  text-align: center;
+}
+
+.site-counters-heading h2 {
+  margin: 0;
+  font: 700 clamp(1.5rem, 4vw, 2rem) "Corben", sans-serif;
+}
+
+.site-counters-heading p {
+  min-height: 1.2em;
+  margin: 0.3rem 0 1rem;
+  color: #555;
+  font: 0.85rem "Corben", sans-serif;
+}
+
+.site-counter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.site-counter-card {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.65rem;
+  min-width: 0;
+  min-height: 190px;
+  padding: 1rem;
+  border: 2px solid #111;
+  background: #f5edff;
+}
+
+.site-visit-card {
+  background: #eaf6ff;
+}
+
+.site-counter-label {
+  margin: 0;
+  font: 700 1rem "Corben", sans-serif;
+}
+
+.site-counter-value {
+  display: block;
+  color: #51258b;
+  font: 700 clamp(2.5rem, 8vw, 4rem)/1 "Corben", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.site-counter-value .odometer {
+  font: inherit;
+}
+
+.site-counter-button {
+  min-height: 44px;
+  padding: 0.55rem 0.9rem;
+  font-size: 1rem;
+}
+
+.site-counter-note {
+  max-width: 22rem;
+  margin: 0;
+  color: #444;
+  font: 0.85rem/1.5 "Corben", sans-serif;
+}
+
+.wall-of-praise {
+  box-sizing: border-box;
+  width: min(100%, 1000px);
+  margin: 1.25rem auto 2rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 4px solid #5b3b0b;
+  background: rgb(255 250 232 / 97%);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 25%);
+}
+
+.wall-of-praise-heading {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.wall-of-praise-heading h2 {
+  margin: 0;
+  color: #65430b;
+  font: 700 clamp(1.6rem, 4vw, 2.25rem) "Corben", sans-serif;
+}
+
+.wall-of-praise-heading p {
+  min-height: 1.2em;
+  margin: 0.35rem 0 0;
+  color: #554628;
+  font: 0.9rem "Corben", sans-serif;
+}
+
+.praise-owner-tools {
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+  margin: 0 auto 1rem;
+  color: #111;
+  font-family: "Corben", sans-serif;
+}
+
+.praise-owner-form,
+.praise-entry-form,
+.praise-owner-session {
+  box-sizing: border-box;
+  display: grid;
+  gap: 0.55rem;
+  width: min(100%, 540px);
+  padding: 0.85rem;
+  border: 2px solid #8b6a25;
+  background: #fff;
+}
+
+.praise-owner-form[hidden],
+.praise-entry-form[hidden],
+.praise-owner-session[hidden] {
+  display: none;
+}
+
+.praise-owner-form input,
+.praise-entry-form input[type="text"],
+.praise-entry-form input[type="email"],
+.praise-entry-form input[type="password"],
+.praise-entry-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 0.55rem;
+  border: 1px solid #777;
+  border-radius: 3px;
+  font: 1rem/1.45 "Corben", sans-serif;
+}
+
+.praise-entry-form input[type="file"] {
+  max-width: 100%;
+  font: 0.9rem "Corben", sans-serif;
+}
+
+.praise-entry-form textarea {
+  resize: vertical;
+}
+
+.praise-entry-form h3 {
+  margin: 0;
+  font: 700 1.1rem "Corben", sans-serif;
+}
+
+.praise-image-hint,
+.praise-owner-feedback {
+  min-height: 1.2em;
+  margin: 0;
+  color: #704100;
+  font: 0.85rem/1.4 "Corben", sans-serif;
+}
+
+.praise-owner-session {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  width: min(100%, 540px);
+  text-align: center;
+}
+
+.praise-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.praise-button {
+  min-height: 42px;
+  padding: 0.55rem 0.85rem;
+  border: 2px solid #4d360b;
+  border-radius: 4px;
+  background: #e8c76f;
+  color: #211700;
+  cursor: pointer;
+  font: 700 0.95rem "Corben", sans-serif;
+}
+
+.praise-button:hover,
+.praise-button:focus-visible {
+  background: #d8ad43;
+}
+
+.praise-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.praise-button-secondary {
+  background: #f4eddb;
+}
+
+.praise-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  align-items: start;
+  gap: 1rem;
+}
+
+.praise-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #554628;
+  font: 1rem "Corben", sans-serif;
+  text-align: center;
+}
+
+.praise-card {
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 2px solid #8b6a25;
+  background: #fffdf7;
+  box-shadow: 0 3px 9px rgb(74 49 4 / 18%);
+  text-align: center;
+}
+
+.praise-frame {
+  width: min(100%, 220px);
+  aspect-ratio: 1;
+  padding: 10px;
+  border: 8px ridge #d3aa42;
+  background: linear-gradient(135deg, #ffe9a0, #a97818 48%, #f7d975 68%, #9a6b12);
+  box-shadow: inset 0 0 0 2px #fff0b5, 0 3px 10px rgb(0 0 0 / 25%);
+}
+
+.praise-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #67480d;
+  background: #eee;
+  object-fit: cover;
+}
+
+.praise-card h3 {
+  margin: 0;
+  color: #65430b;
+  font: 700 1.2rem "Corben", sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.praise-card p {
+  margin: 0;
+  color: #292315;
+  font: 0.98rem/1.5 "Corben", sans-serif;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.praise-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.praise-card-actions[hidden] {
+  display: none;
+}
+
+.private-corner-page {
+  width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.private-corner-card {
+  box-sizing: border-box;
+  width: min(100%, 680px);
+  margin: 2rem auto;
+  padding: clamp(1.25rem, 5vw, 2.5rem);
+  border: 5px solid #111;
+  background: #f4edff;
+  box-shadow: 0 5px 18px rgb(0 0 0 / 35%);
+  color: #211634;
+  text-align: center;
+}
+
+.private-corner-card h2 {
+  margin-top: 0;
+  font: 700 clamp(1.5rem, 4vw, 2rem) "Corben", sans-serif;
+}
+
+.private-corner-card p {
+  font: 1rem/1.6 "Corben", sans-serif;
+}
+
+.private-corner-card[hidden] {
+  display: none;
+}
+
+.private-corner-lock {
+  justify-items: stretch;
+  max-width: 460px;
+}
+
+.private-corner-lock h2,
+.private-corner-lock label {
+  text-align: center;
+}
+
+.private-corner-lock input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 0.65rem;
+  border: 2px solid #555;
+  border-radius: 4px;
+  font: 1rem "Corben", sans-serif;
+}
+
+.private-corner-lock button,
+.private-corner-lock > a {
+  justify-self: center;
+}
+
+.private-corner-error {
+  min-height: 1.5em;
+  margin: 0;
+  color: #8b0000;
+  text-align: center;
+}
+
+.private-corner-home {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.7rem 1rem;
+  border: 2px solid #111;
+  background: #fff;
+  color: #111;
+  font: 1rem "Corben", sans-serif;
+  text-decoration: none;
+}
+
+.private-corner-home:hover,
+.private-corner-home:focus-visible {
+  background: #111;
+  color: #fff;
+}
+
 @media (max-width: 600px) {
   body {
     --header-height: 4.5rem;
@@ -301,8 +751,8 @@ main {
 
   nav a {
     min-height: 44px;
-    padding: 0.55rem 0.8rem;
-    font-size: 1.25rem;
+    padding: 0.5rem 0.55rem;
+    font-size: 1rem;
   }
 
   nav ul {
@@ -329,5 +779,41 @@ main {
 
   .my-intro {
     padding: 1.25rem;
+  }
+
+  .whats-happening-heading {
+    display: block;
+  }
+
+  .happening-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .happening-card {
+    min-height: 135px;
+    padding: 0.65rem;
+  }
+
+  .site-counter-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-counter-card {
+    min-height: 160px;
+  }
+
+  .praise-owner-session {
+    grid-template-columns: 1fr;
+  }
+
+  .praise-frame {
+    width: min(100%, 190px);
+  }
+}
+
+@media (max-width: 360px) {
+  .happening-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

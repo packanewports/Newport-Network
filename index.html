@@ -8,6 +8,8 @@
 
     <link rel="icon" type="image/png" href="img/NNLogo.png" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css" />
   </head>
 
   <body>
@@ -15,10 +17,12 @@
 
     <nav aria-label="Main navigation">
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="Art Musuem.html">Art Museum</a></li>
         <li><a href="anonwall.html">Anon Wall</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="musicbar.html">Music Bar</a></li>
       </ul>
     </nav>
 
@@ -40,9 +44,11 @@
             If you're here, I assume youre from my twitter page <a href="https://x.com/packaports?=11" target="_blank" rel="noopener noreferrer">(if not, check it out!)</a> and you want to know more about wonderful me, or maybe you want to check out the many other things this site offers, if so jump to <a href="#this-site">here</a> to learn more about this site!
           </p>
         </div>
+<!--
+I FUCKING HATE CODING, IF YOU'RE INSPECT RIGHT NOW, FUCK YOU!
+-->
 
        </div>
-
        <div class="my-intro">
         <h2>About Packa</h2>
         <h3>The coolest shitposter on the internet</h3>
@@ -58,8 +64,118 @@
             This site is a personal website for me, Packa, to share my thoughts and introduce myself. I could've used a strawpage, but I'm simply better. This site will come to include a blog, somewhere I can post my ideas and feelings when twitters dry, it will also include an art museum, similair to straw pages anonymous drawing system you can draw something and frame it on the wall, an anon wall, where you can write whatever you want and use it like your own little blog, and a few other things soon to come!
           </p>
         </div>
+
+
+        <section class="whats-happening" aria-labelledby="whats-happening-heading">
+        <div class="whats-happening-heading">
+          <div>
+            <h2 id="whats-happening-heading">What's happening</h2>
+            <p id="whats-happening-status" role="status" aria-live="polite">Loading the latest from around the site...</p>
+          </div>
+        </div>
+        <div class="happening-grid">
+          <a class="happening-card happening-music" href="musicbar.html">
+            <span class="happening-label">Music Bar</span>
+            <strong id="happening-music-title">Checking the room...</strong>
+            <span id="happening-music-detail">Shared queue</span>
+          </a>
+          <a class="happening-card" href="blog.html">
+            <span class="happening-label">Latest from the blog</span>
+            <strong id="happening-blog-title">Loading blog...</strong>
+            <span id="happening-blog-detail">Updates from Packa</span>
+          </a>
+          <a class="happening-card" href="anonwall.html">
+            <span class="happening-label">Anon Wall</span>
+            <strong id="happening-wall-post">Loading the wall...</strong>
+            <span id="happening-wall-detail">A note from the community</span>
+          </a>
+          <a class="happening-card happening-art" href="Art Musuem.html">
+            <span class="happening-label" id="happening-art-label">From the Art Museum</span>
+            <img id="happening-art-image" alt="" hidden />
+            <strong id="happening-art-title">Loading artwork...</strong>
+            <span id="happening-art-detail">A little gallery of art sent to Packa</span>
+          </a>
+        </div>
+       </section>
+
+       <section class="site-counters" aria-labelledby="site-counters-heading">
+        <div class="site-counters-heading">
+          <h2 id="site-counters-heading">The Newport Counters</h2>
+          <p id="site-counters-status" role="status" aria-live="polite">Connecting to the live counters...</p>
+        </div>
+        <div class="site-counter-grid">
+          <article class="site-counter-card">
+            <p class="site-counter-label">The community made this number</p>
+            <output class="site-counter-value" id="community-counter" aria-live="polite">0</output>
+            <button class="letter-button site-counter-button" id="community-counter-button" type="button" disabled>
+              Click to make it go up!
+            </button>
+          </article>
+          <article class="site-counter-card site-visit-card">
+            <p class="site-counter-label">Site visits</p>
+            <output class="site-counter-value" id="site-visit-counter" aria-live="polite">0</output>
+            <p class="site-counter-note">One count each time a page on the site is opened.</p>
+          </article>
+        </div>
+       </section>
+
+       <section class="wall-of-praise" aria-labelledby="wall-of-praise-title">
+        <div class="wall-of-praise-heading">
+          <h2 id="wall-of-praise-title">Wall of SHAME</h2>
+          <p id="wall-of-praise-status" role="status" aria-live="polite">Loading the shame...</p>
+        </div>
+
+        <section class="praise-owner-tools" aria-label="Wall of Praise owner controls">
+          <button class="praise-button praise-button-secondary" id="praise-owner-toggle" type="button">
+            Owner sign in
+          </button>
+          <form class="praise-owner-form" id="praise-owner-form" hidden>
+            <label for="praise-owner-email">Mailbox email</label>
+            <input id="praise-owner-email" type="email" autocomplete="username" required />
+            <label for="praise-owner-password">Mailbox password</label>
+            <input id="praise-owner-password" type="password" autocomplete="current-password" required />
+            <button class="praise-button" type="submit">Sign in</button>
+          </form>
+          <div class="praise-owner-session" id="praise-owner-session" hidden>
+            <span>Owner mode: you can add, edit, or remove shame.</span>
+            <button class="praise-button praise-button-secondary" id="praise-owner-sign-out" type="button">
+              Sign out
+            </button>
+          </div>
+          <p class="praise-owner-feedback" id="praise-owner-feedback" role="status" aria-live="polite"></p>
+
+          <form class="praise-entry-form" id="praise-entry-form" hidden>
+            <h3 id="praise-entry-form-title">Add someone to the Wall of SHAME</h3>
+            <label for="praise-person-name">Name or handle</label>
+            <input id="praise-person-name" name="person_name" type="text" maxlength="80" required />
+            <label for="praise-message">What are you shaming them for?</label>
+            <textarea id="praise-message" name="praise_text" maxlength="1000" rows="4" required></textarea>
+            <label for="praise-image">Profile picture (JPG, PNG, GIF, or WebP; up to 5 MB)</label>
+            <input id="praise-image" name="image" type="file" accept="image/jpeg,image/png,image/gif,image/webp" />
+            <p class="praise-image-hint" id="praise-image-hint">Use an image you have permission to share.</p>
+            <div class="praise-form-actions">
+              <button class="praise-button" id="praise-entry-submit" type="submit">Add praise</button>
+              <button class="praise-button praise-button-secondary" id="praise-entry-cancel" type="button" hidden>
+                Cancel edit
+              </button>
+            </div>
+            <p class="praise-owner-feedback" id="praise-entry-feedback" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <div class="praise-gallery" id="praise-gallery" aria-label="People being celebrated"></div>
+       </section>
+
         
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
     <script src="js/script.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/whats-happening.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/wall-of-praise.js" defer></script>
   </body>
 </html>

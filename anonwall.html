@@ -1,22 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Under Construction</title>
-	<style>
-		html, body { min-height: 100%; margin: 0; }
-		body {
-			min-height: 100vh;
-			display: grid;
-			place-items: center;
-			font-family: Arial, Helvetica, sans-serif;
-			text-align: center;
-		}
-		h1 { margin: 0; font-size: clamp(3rem, 12vw, 10rem); }
-	</style>
-</head>
-<body>
-	<h1>UNDER CONSTRUCTION</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An anonymous wall for messages, pictures, videos, replies, and likes." />
+    <title>Anon Wall | Newport Network</title>
+    <link rel="icon" type="image/png" href="img/NNLogo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/anonwall.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+  </head>
+
+  <body>
+    <header>Newport Network</header>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="Art Musuem.html">Art Museum</a></li>
+        <li><a href="anonwall.html" aria-current="page">Anon Wall</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="musicbar.html">Music Bar</a></li>
+      </ul>
+    </nav>
+
+    <main class="anon-wall-page">
+      <h1 id="anon-wall-title"><span class="rainbow-float">Anon Wall</span></h1>
+      <p class="anon-wall-intro">Post anonymously, share a picture or video, and talk with the wall.</p>
+
+      <section class="anon-owner" aria-label="Owner moderation controls">
+        <button class="letter-button letter-button-secondary" id="anon-owner-toggle" type="button">
+          Owner sign in
+        </button>
+        <form class="anon-owner-form" id="anon-owner-form" hidden>
+          <label for="anon-owner-email">Mailbox email</label>
+          <input id="anon-owner-email" name="email" type="email" autocomplete="username" required />
+          <label for="anon-owner-password">Mailbox password</label>
+          <input id="anon-owner-password" name="password" type="password" autocomplete="current-password" required />
+          <button class="letter-button" type="submit">Sign in</button>
+        </form>
+        <div class="anon-owner-session" id="anon-owner-session" hidden>
+          <span>Owner mode: delete controls enabled.</span>
+          <button class="letter-button letter-button-secondary" id="anon-owner-sign-out" type="button">
+            Sign out
+          </button>
+        </div>
+        <p class="anon-wall-feedback" id="anon-owner-feedback" role="status" aria-live="polite"></p>
+      </section>
+
+      <dialog class="anon-post-dialog" id="anon-post-dialog" aria-labelledby="anon-post-dialog-title">
+        <div class="anon-post-dialog-header">
+          <h2 id="anon-post-dialog-title">Create a post</h2>
+          <button class="letter-button letter-button-secondary anon-post-dialog-close" id="anon-post-close" type="button">
+            Close
+          </button>
+        </div>
+        <form class="anon-composer" id="anon-post-form">
+          <label for="anon-post-body">Write something (optional if attaching media)</label>
+          <textarea id="anon-post-body" name="body" maxlength="5000" rows="3" placeholder="What's on your mind?"></textarea>
+          <div class="anon-composer-controls">
+            <label class="letter-button letter-button-secondary anon-upload-label" for="anon-post-media">
+              Add one image or video
+            </label>
+            <input
+              class="visually-hidden"
+              id="anon-post-media"
+              name="media"
+              type="file"
+              accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm"
+            />
+            <span class="anon-upload-info" id="anon-upload-info">Optional · up to 10 MB</span>
+            <button class="letter-button" id="anon-post-submit" type="submit">Post anonymously</button>
+          </div>
+          <p class="anon-wall-feedback" id="anon-post-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </dialog>
+      <button class="letter-button anon-post-open" id="anon-post-open" type="button" aria-haspopup="dialog">
+        Post
+      </button>
+
+      <div class="anon-feed-heading">
+        <p class="anon-wall-feedback" id="anon-feed-status" role="status" aria-live="polite">Loading posts...</p>
+      </div>
+      <a class="letter-button letter-button-secondary anon-thread-back" id="anon-thread-back" href="anonwall.html" hidden>
+        ← Back to the wall
+      </a>
+      <section class="anon-feed" id="anon-feed" aria-label="Anonymous posts"></section>
+      <nav class="anon-pagination" id="anon-pagination" aria-label="Anon wall pages">
+        <button class="letter-button letter-button-secondary" id="anon-page-previous" type="button" disabled>
+          Newer
+        </button>
+        <span id="anon-page-status" aria-live="polite">Page 1</span>
+        <button class="letter-button letter-button-secondary" id="anon-page-next" type="button" disabled>
+          Older
+        </button>
+      </nav>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/anonwall.js" defer></script>
+  </body>
 </html>

@@ -1,22 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Under Construction</title>
-	<style>
-		html, body { min-height: 100%; margin: 0; }
-		body {
-			min-height: 100vh;
-			display: grid;
-			place-items: center;
-			font-family: Arial, Helvetica, sans-serif;
-			text-align: center;
-		}
-		h1 { margin: 0; font-size: clamp(3rem, 12vw, 10rem); }
-	</style>
-</head>
-<body>
-	<h1>UNDER CONSTRUCTION</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Read the Newport Network blog." />
+    <title>Blog | Newport Network</title>
+    <link rel="icon" type="image/png" href="img/NNLogo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/blog.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+  </head>
+
+  <body>
+    <header>Newport Network</header>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
+        <li><a href="Art Musuem.html">Art Museum</a></li>
+        <li><a href="anonwall.html">Anon Wall</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="musicbar.html">Music Bar</a></li>
+      </ul>
+    </nav>
+
+    <main class="blog-page">
+      <h1><span class="rainbow-float">Blog</span></h1>
+      <p class="blog-intro">Updates and thoughts from Newport Network.</p>
+
+      <section class="blog-owner" aria-label="Blog owner controls">
+        <button class="letter-button letter-button-secondary" id="blog-owner-toggle" type="button">
+          Owner sign in
+        </button>
+        <form class="blog-owner-form" id="blog-owner-form" hidden>
+          <label for="blog-owner-email">Mailbox email</label>
+          <input id="blog-owner-email" name="email" type="email" autocomplete="username" required />
+          <label for="blog-owner-password">Mailbox password</label>
+          <input id="blog-owner-password" name="password" type="password" autocomplete="current-password" required />
+          <button class="letter-button" type="submit">Sign in</button>
+        </form>
+        <div class="blog-owner-session" id="blog-owner-session" hidden>
+          <span>Owner mode: you can publish posts.</span>
+          <button class="letter-button letter-button-secondary" id="blog-owner-sign-out" type="button">
+            Sign out
+          </button>
+        </div>
+        <p class="blog-feedback" id="blog-owner-feedback" role="status" aria-live="polite"></p>
+      </section>
+
+      <dialog class="blog-post-dialog" id="blog-post-dialog" aria-labelledby="blog-post-dialog-title">
+        <div class="blog-post-dialog-header">
+          <h2 id="blog-post-dialog-title">Write a blog post</h2>
+          <button class="letter-button letter-button-secondary" id="blog-post-close" type="button">Close</button>
+        </div>
+        <form class="blog-post-form" id="blog-post-form">
+          <label for="blog-post-title">Title</label>
+          <input id="blog-post-title" name="title" maxlength="160" required />
+          <label for="blog-post-body">Write something</label>
+          <textarea id="blog-post-body" name="body" maxlength="10000" rows="8" required></textarea>
+          <p class="blog-feedback" id="blog-post-feedback" role="status" aria-live="polite"></p>
+          <button class="letter-button" id="blog-post-submit" type="submit">Publish post</button>
+        </form>
+      </dialog>
+      <button class="letter-button blog-post-open" id="blog-post-open" type="button" aria-haspopup="dialog" hidden>
+        Post
+      </button>
+
+      <p class="blog-feed-status" id="blog-feed-status" role="status" aria-live="polite">Loading posts...</p>
+      <section class="blog-feed" id="blog-feed" aria-label="Blog posts"></section>
+      <nav class="blog-pagination" aria-label="Blog pages">
+        <button class="letter-button letter-button-secondary" id="blog-page-previous" type="button" disabled>
+          Newer
+        </button>
+        <span id="blog-page-status" aria-live="polite">Page 1</span>
+        <button class="letter-button letter-button-secondary" id="blog-page-next" type="button" disabled>
+          Older
+        </button>
+      </nav>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/blog.js" defer></script>
+  </body>
 </html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- 
+This was completely made by me, no vibe coding, #ILOVEHTMLCSSJS
+-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Write a letter to Packa." />
+    <title>Write a Letter | Newport Network</title>
+    <link rel="icon" type="image/png" href="img/NNLogo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/letter.css" />
+    <link rel="stylesheet" href="css/hammer-mode.css" />
+  </head>
+
+  <body>
+    <header>Newport Network</header>
+
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mailbox.html">Mailbox</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="Art Musuem.html">Art Museum</a></li>
+        <li><a href="anonwall.html">Anon Wall</a></li>
+        <li><a href="musicbar.html">Music Bar</a></li>
+      </ul>
+    </nav>
+
+    <main class="letter-page">
+      <h1><span class="rainbow-float">Send me a letter!</span></h1>
+      <p class="letter-intro">Choose how you'd like to send a little note.</p>
+
+      <section class="letter-stage" id="letter-stage" aria-label="Letter writing">
+        <div class="letter-choices" id="letter-choices">
+          <button class="letter-button" id="write-button" type="button">Write a letter</button>
+          <button class="letter-button letter-button-secondary" id="draw-button" type="button">
+            Draw a picture
+          </button>
+          <p class="mailbox-note">Letters are privately read, art is appreciated, special people will be hung on the art museum wall!</p>
+        </div>
+
+        <form class="letter-form" id="letter-form" hidden>
+          <div class="sender-name">
+            <label for="sender-name">Your name (optional)</label>
+            <div class="sender-name-controls">
+              <input
+                id="sender-name"
+                name="senderName"
+                type="text"
+                maxlength="40"
+                autocomplete="nickname"
+                placeholder="Anonymous"
+              />
+              <button class="letter-button letter-button-secondary" id="random-name-button" type="button">
+                Random name
+              </button>
+            </div>
+          </div>
+          <p class="letter-feedback" id="letter-feedback" role="status" aria-live="polite"></p>
+          <div class="letter-attachment">
+            <label class="letter-button letter-button-secondary" for="letter-image">
+              Attach one image
+            </label>
+            <input
+              class="visually-hidden"
+              id="letter-image"
+              name="image"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              aria-describedby="attachment-details"
+            />
+            <span id="attachment-details">Optional · JPG, PNG, WebP, or GIF · up to 5 MB</span>
+            <button class="remove-attachment" id="remove-attachment-button" type="button" hidden>
+              Remove image
+            </button>
+          </div>
+          <div class="letter-paper">
+            <img src="img/paper.png" alt="" aria-hidden="true" />
+            <label class="visually-hidden" for="letter-message">Your letter</label>
+            <textarea
+              id="letter-message"
+              name="message"
+              maxlength="1000"
+              placeholder="Dear Packa,"
+              required
+              spellcheck="true"
+            ></textarea>
+          </div>
+          <div class="letter-actions">
+            <button class="letter-button" id="send-button" type="submit" disabled>Send letter</button>
+            <button class="letter-button letter-button-secondary" id="cancel-button" type="button">
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <form class="drawing-form" id="drawing-form" hidden>
+          <div class="drawing-name">
+            <label for="drawing-sender-name">Your name (optional)</label>
+            <div class="sender-name-controls">
+              <input
+                id="drawing-sender-name"
+                name="senderName"
+                type="text"
+                maxlength="40"
+                autocomplete="nickname"
+                placeholder="Anonymous"
+              />
+              <button class="letter-button letter-button-secondary" id="drawing-random-name" type="button">
+                Random name
+              </button>
+            </div>
+          </div>
+          <div class="drawing-toolbar" aria-label="Drawing tools">
+            <div class="drawing-toolbar-group drawing-tools-group" role="group" aria-label="Drawing tools">
+              <button class="letter-button drawing-tool is-selected" id="pencil-tool" type="button" aria-pressed="true">
+                Pencil
+              </button>
+              <button class="letter-button drawing-tool" id="eraser-tool" type="button" aria-pressed="false">
+                Eraser
+              </button>
+              <button class="letter-button drawing-tool" id="bucket-tool" type="button" aria-pressed="false">
+                Bucket
+              </button>
+              <button class="letter-button drawing-tool" id="line-tool" type="button" aria-pressed="false">
+                Line
+              </button>
+              <button class="letter-button drawing-tool" id="circle-tool" type="button" aria-pressed="false">
+                Circle
+              </button>
+              <button class="letter-button drawing-tool" id="square-tool" type="button" aria-pressed="false">
+                Square
+              </button>
+            </div>
+            <div class="drawing-toolbar-group drawing-settings-group" role="group" aria-label="Color and brush size">
+              <label class="drawing-color-label" for="drawing-color">Color</label>
+              <input id="drawing-color" type="color" value="#202020" aria-label="Pencil color" />
+              <label class="drawing-size-label" for="drawing-size">Size</label>
+              <input id="drawing-size" type="range" min="2" max="36" value="7" aria-label="Brush size" />
+              <output class="drawing-size-value" id="drawing-size-value" for="drawing-size">7 px</output>
+            </div>
+            <div class="drawing-toolbar-group drawing-history-group" role="group" aria-label="Drawing history">
+              <button class="letter-button drawing-tool" id="undo-drawing" type="button" disabled>Undo</button>
+              <button class="letter-button drawing-tool" id="redo-drawing" type="button" disabled>Redo</button>
+              <button class="letter-button drawing-tool" id="clear-drawing" type="button" disabled>Clear</button>
+            </div>
+          </div>
+          <div class="drawing-paper" id="drawing-paper">
+            <img src="img/paper%20draw.jpg" alt="" aria-hidden="true" />
+            <canvas id="drawing-canvas" aria-label="Draw your picture on the paper"></canvas>
+            <img
+              class="drawing-hand-cursor"
+              id="drawing-hand-cursor"
+              src="img/hand.png"
+              alt=""
+              aria-hidden="true"
+              hidden
+            />
+            <span class="brush-preview" id="brush-preview" aria-hidden="true" hidden></span>
+            <span class="drawing-cursor-marker" id="drawing-cursor-marker" aria-hidden="true" hidden></span>
+          </div>
+          <aside class="drawing-guide drawing-guide-controls" aria-label="Canvas controls guide">
+            <h2>Canvas controls</h2>
+            <ul>
+              <li><strong>Color:</strong> Choose a drawing color.</li>
+              <li><strong>Size:</strong> Adjust pencil and eraser width.</li>
+              <li><strong>Undo:</strong> Ctrl+Z or Cmd+Z.</li>
+              <li><strong>Redo:</strong> Ctrl+Shift+Z, Ctrl+Y, or Cmd equivalents.</li>
+              <li><strong>Clear:</strong> Remove all marks; you can undo it.</li>
+              <li><strong>Send drawing:</strong> Send your picture.</li>
+              <li><strong>Cancel:</strong> Leave without sending.</li>
+            </ul>
+          </aside>
+          <p class="drawing-feedback" id="drawing-feedback" role="status" aria-live="polite">
+            Hold Shift while drawing with the pencil or eraser to draw a straight line.
+          </p>
+          <div class="letter-actions">
+            <button class="letter-button" id="send-drawing" type="submit" disabled>Send drawing</button>
+            <button class="letter-button letter-button-secondary" id="cancel-drawing" type="button">
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <div class="letter-sent" id="letter-sent" hidden aria-live="polite">
+          <img id="sent-envelope" src="img/envelope.png" alt="An envelope with your letter" />
+          <p class="sent-stamp" id="sent-stamp" hidden>SENT!</p>
+          <button class="letter-button" id="write-another-button" type="button" hidden>
+            Close!
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/site-counters.js" defer></script>
+    <script src="js/hammer-mode.js" defer></script>
+    <script src="js/private-corner-trigger.js" defer></script>
+    <script src="js/letter.js" defer></script>
+  </body>
+</html>
